@@ -1,0 +1,113 @@
+
+<script src ="Acteur.js"></script>
+<script src= "Scene.js"></script>
+<script src= "Sol.js"></script>
+<script src= "AcPhysic.js"></script>
+<script src= "Balle.js"></script>
+<script src= "AcAnime.js"></script>
+<script src= "Eau.js"></script>
+<script src= "Bonhomme.js"></script>
+<script src= "Mur.js"></script>
+<div id="TerrainDeJeu" ></div>
+
+<script>
+    //Création d'une scene
+    var scene= new Scene();
+
+    //Test d'instanciation de la classe Acteur
+    var a1 = new Acteur( "images/sol.png", 200, 200) ;
+    scene.add(a1);
+    scene.remove(a1);
+   // console.log( a1 ) ;
+    
+    /*
+    scene.add(new Acteur( "images/sol.png", 200, 200)) ;
+    var a2 = new Acteur( "images/balle.png", 200, 100) ;
+    scene.add(a2);
+
+    //Test de la méthode moveTo
+    a2.moveTo(200,300);
+*/
+    //Test d'instanciation de la classe Sol
+    //var s1 = new Sol (232, 200) ;
+
+    var xb = 200 ;
+
+    //Test d'instanciation de AcPhysic
+    /*
+    var b = new AcPhysic ("images/balle.png",232,200, 2,-5,0,0.1) ;
+    scene.add(b);
+    scene.add(new AcPhysic ("images/balle.png",264,300,-2,-5,0,0.1));
+    */
+    //Explosion de balles
+    /*
+   for( var i=0; i<10 ; i++){
+       scene.add(new Balle("images/balle.png",264,300,Math.random() *6-3, Math.random() * -10)) ;
+    }*/
+
+     //Test d'instanciation de Balle
+    //  var balle = new Balle ("images/balle.png") ;
+    //  scene.add(balle);
+
+    //Test d'un bonhomme
+    var bonhomme = new Bonhomme(
+     200, 300) ;
+
+    scene.add(bonhomme);
+
+    //Creation d'un sol
+    var x = 150;
+    for ( var i=0; i<10; i++)
+    {
+        scene.add (new Sol(x, 335));
+        x+=45 ;
+    }
+    //Création d'un petit lac
+    
+    for ( var i=0; i<10; i++)
+    {
+        scene.add (new Eau(x, 350)) ;
+        x+= 32 ;
+
+    }
+    
+
+    //Creation d'un mur
+    scene.add (new Mur(300, 320));
+    scene.add (new Mur(300, 288));
+
+    //Création de nouveaux murs
+    var mur1= new Mur (400,320);
+    var mur2= new Mur (400,288);
+    
+    scene.add(mur1);
+    scene.add(mur2);
+    //Acteur en collision
+    if (mur1.isCollisionWith(mur2)==true){
+       // alert("En collision");
+    }
+    else {
+       // alert("Pas en collision");
+    }
+    
+    //Test mur collisionné
+    scene.whoIsCollisioningWith(mur1);
+
+    //Création d'un timer toutes les 10 ms
+    setInterval(function()
+    {
+        //Déplacement de 3 px de la balle vers la droite
+        //a2.moveTo(xb,300) ;
+        //xb+=3 ;
+        scene.onTimer() ;
+    }, 10);
+
+
+//Gestion des touches du clavier
+document.onkeydown = function(event) 
+{
+    scene.onKeyDown(event.keyCode) ;
+    return false; 
+} ;
+
+</script>
